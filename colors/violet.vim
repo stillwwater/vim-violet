@@ -13,16 +13,16 @@ if exists('syntax_on')
   syntax reset
 endif
 
-if !exists('g:violet_blue')
-  let g:violet_blue = 0
+if !exists('g:violet_solarized')
+  let g:violet_solarized = 0
 endif
 
 if !exists('g:violet_accent')
   let g:violet_accent = 'purple'
 endif
 
-let s:none     = ['NONE',   'NONE']
-let s:blue     = ['#458588',  '66']
+let s:none     = ['NONE', 'NONE']
+let s:blue     = ['#bddafc', '153']
 let s:red      = ['#d65e76', '168']
 let s:purple   = ['#b3aaee', '147']
 let s:pink     = ['#faa0b9', '217']
@@ -30,7 +30,7 @@ let s:yellow   = ['#ffff87', '228']
 let s:green    = ['#99e8c9', '122']
 let s:cyan     = ['#87d7d7', '116']
 
-if g:violet_blue
+if g:violet_solarized
   let s:color0 = ['#0a1a26', '233']
   let s:color1 = ['#132631', '234']
   let s:color2 = ['#243b4a', '236']
@@ -42,13 +42,10 @@ else
   let s:color3 = ['#525253', '239']
 endif
 
-if g:violet_accent == 'pink'
-  let s:accent = s:pink
-elseif g:violet_accent == 'green'
-  let s:accent = s:green
-else
-  let s:accent = s:purple
-endif
+let s:accent = get({
+      \ 'pink': s:pink,
+      \ 'blue': s:blue},
+      \ g:violet_accent, s:purple)
 
 let s:comment  = ['#65737a', '243']
 let s:normal   = ['#bfbbbe', '250']
@@ -105,7 +102,7 @@ hi! link Define         PreProc
 hi! link Macro          PreProc
 hi! link PreCondit      PreProc
 
-call s:h('Special', s:keyword, s:none)
+call s:h('Special', s:preproc, s:none)
 hi! link SpecialChar    Special
 hi! link Tag            Special
 hi! link SpecialComment Special
